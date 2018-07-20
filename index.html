@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +8,28 @@
   <link rel="stylesheet" href="styles/styles.css">
   <title>Neighborhood Map</title>
 </head>
+
 <body>
+
+  <!-- Seach Bar -->
+  <div id="toggle-search" class="sidenav">
+    <a href="javascript:void(0)" class="hamburger" onclick="toggleSearch()">&times;</a>
+    <input id="search-location-input" type="text" placeholder="Enter your favorite area!">
+    <button>Go!</button>
+  </div>
+  <span style="font-size:30px;cursor:pointer" onclick="toggleSearch()">&#9776;</span>
 
   <!-- Map View -->
   <div id="map"></div>
-  
+
   <!-- Loading Scripts -->
+  <script src="libs/jquery-3.3.1.js"></script>
   <script src="libs/knockout-3.4.2.js"></script>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAX0BdwPnSyrm04_-A3l929lHZ5OUh0iCw&v=3&callback=initMap">
-  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAX0BdwPnSyrm04_-A3l929lHZ5OUh0iCw&v=3&callback=initMap"></script>
+  <!-- Custom Scripts -->
   <script src="app/app.js"></script>
-  <script src="app/view/mapView.js"></script>
+  <script src="app/viewModels/mapView.js"></script>
 
 </body>
+
 </html>
