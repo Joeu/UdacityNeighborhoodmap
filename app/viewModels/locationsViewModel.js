@@ -1,10 +1,12 @@
 var LocationsViewModel = function(){
   this.locationInput = ko.observable("");
-  this.allLocations = ko.observableArray([]);
+  this.allLocations = ko.observableArray(initialLocations);
 
   this.addLocation = function(){
     if (this.locationInput() != ""){
-      this.allLocations.push(this.locationInput());
+      let _currentLocation = {title: this.locationInput()}
+      // if location exists
+      this.allLocations.push(_currentLocation);
       this.locationInput("");
     }
   }

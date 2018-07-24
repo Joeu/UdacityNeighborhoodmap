@@ -20,7 +20,7 @@
         <button data-bind="click: addLocation">Go!</button>
         <hr>
         <ul data-bind="foreach: allLocations">
-          <span class="locationRow" data-bind="text: $data"></span>
+          <span class="locationRow" data-bind="text: $data.title"></span>
         </ul>
       </div>
     </div>
