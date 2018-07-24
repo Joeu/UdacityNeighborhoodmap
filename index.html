@@ -16,9 +16,12 @@
     <div id="toggleSearch" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="toggleSearch()">&times;</a>
       <div class="searchInput">
-        <input id="locationInput" type="text" placeholder="Enter your favorite area!">
-        <button>Go!</button>
+        <input data-bind="value: locationInput" placeholder="Enter your favorite area!">
+        <button data-bind="click: addLocation">Go!</button>
         <hr>
+        <ul data-bind="foreach: allLocations">
+          <span class="locationRow" data-bind="text: $data"></span>
+        </ul>
       </div>
     </div>
     <div id="headerIcon" class="headerIcon">
@@ -46,6 +49,7 @@
   <!-- Custom Scripts -->
   <script src="app/app.js"></script>
   <script src="app/viewModels/mapView.js"></script>
+  <script src="app/viewModels/locationsViewModel.js"></script>
 
 </body>
 
