@@ -11,16 +11,29 @@
 
 <body>
 
-  <!-- Seach Bar -->
-  <div id="toggle-search" class="sidenav">
-    <a href="javascript:void(0)" class="hamburger" onclick="toggleSearch()">&times;</a>
-    <input id="search-location-input" type="text" placeholder="Enter your favorite area!">
-    <button>Go!</button>
-  </div>
-  <span style="font-size:30px;cursor:pointer" onclick="toggleSearch()">&#9776;</span>
+  <header>
+    <!-- Seach Bar -->
+    <div id="toggleSearch" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleSearch()">&times;</a>
+      <div class="searchInput">
+        <input id="locationInput" type="text" placeholder="Enter your favorite area!">
+        <button>Go!</button>
+        <hr>
+      </div>
+    </div>
+    <div id="headerIcon" class="headerIcon">
+      <span id="hamburgerIcon" class="hamburger" onclick="toggleSearch()">&#9776;</span>
+    </div>
+  </header>
+  
+  <main id="map">
+    <!-- Map View -->
+    <div></div>
+  </main>
 
-  <!-- Map View -->
-  <div id="map"></div>
+  <footer>
+
+  </footer>
 
   <!-- Loading Scripts -->
   <script src="libs/jquery-3.3.1.js"></script>
