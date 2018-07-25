@@ -8,6 +8,9 @@ const initialLocations = [
   { title: 'La Cucina 150 Ristorante', location: { lat: -7.2225154, lng: -35.8843565 } }
 ];
 
+var clickedMarker = null;
+var allMarkers = null;
+
 var initMap = function(){
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -7.2290752, lng: -35.8808337},
@@ -56,6 +59,7 @@ function setInitialMarkers(array){
   });
 
   showListings(markers);
+  allMarkers = markers;
 }
 
 function makeMarkerIcon(markerColor) {
@@ -83,6 +87,17 @@ function hideListings() {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
+}
+
+function showClickedMarkerInfo(marker){
+  var infoWindow = new google.maps.InfoWindow();
+  let _currentMarker = allMarkers.filter(function(element){
+    if (element.title == marker.title){
+      return element;
+    }
+  });
+
+  populateInfoWindow(_currentMarker[0], infoWindow)
 }
 
 function populateInfoWindow(marker, infowindow) {
@@ -121,3 +136,44 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.open(map, marker);
   }
 }
+
+// View Model
+var LocationsViewModel = function(){
+  this.locationInput = ko.observable("");
+  this.allLocations = ko.observableArray(initialLocations);
+
+  this.filteredLocations = function(){
+    var filter = this.locationInput().toLowerCase();
+    if (!filter) {
+      return this.allLocations();
+    } else {
+      return ko.utils.arrayFilter(this.allLocations(), function (item) {
+        return stringStartsWith(item.title.toLowerCase(), filter);
+      });
+    }
+  }
+
+  this.setMarkerToDisplay = function(data){
+    showClickedMarkerInfo(data);
+  }
+  
+  this.allLocations.sort();
+};
+
+var VM = new LocationsViewModel();
+ko.applyBindings(VM);
+
+VM.locationInput.subscribe(function(){
+  VM.filteredLocations();
+});
+
+VM.allLocations.subscribe(function(){
+  VM.setMarkerToDisplay();
+});
+
+var stringStartsWith = function (string, startsWith) {          
+  string = string || "";
+  if (startsWith.length > string.length)
+      return false;
+  return string.substring(0, startsWith.length) === startsWith;
+};

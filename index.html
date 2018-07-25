@@ -20,12 +20,8 @@
         <!-- <button data-bind="click: addLocation">Go!</button> -->
         <hr>
         <ul data-bind="foreach: allLocations">
-          <span class="locationRow" data-bind="text: $data.title"></span>
+          <span class="locationRow" data-bind="text: $data.title, click: function(){$parent.setMarkerToDisplay($data);}"></span>
         </ul>
-        <hr>
-        <ul data-bind="foreach: filteredLocations">
-            <span class="locationRow" data-bind="text: $data.title"></span>
-          </ul>
       </div>
     </div>
     <div id="headerIcon" class="headerIcon">
@@ -53,7 +49,7 @@
   <!-- Custom Scripts -->
   <script src="app/app.js"></script>
   <script src="app/viewModels/mapView.js"></script>
-  <script src="app/viewModels/locationsViewModel.js"></script>
+  <!-- <script src="app/viewModels/locationsViewModel.js"></script> -->
 
 </body>
 
