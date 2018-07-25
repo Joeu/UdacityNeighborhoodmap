@@ -9,7 +9,8 @@ const initialLocations = [
 ];
 
 var clickedMarker = null;
-var allMarkers = null;
+var markers = null;
+var infoWindow = null;
 
 var initMap = function(){
   map = new google.maps.Map(document.getElementById('map'), {
@@ -17,14 +18,14 @@ var initMap = function(){
     zoom: 13,
     mapTypeControl: false
   });
+  infoWindow = new google.maps.InfoWindow();
   setInitialMarkers(initialLocations);
 }
 
 function setInitialMarkers(array){
-  var markers = [];
+  markers = [];
   var defaultIcon = makeMarkerIcon('0091ff');
   var highlightedIcon = makeMarkerIcon('FFFF24');
-  var infoWindow = new google.maps.InfoWindow();
 
   array.forEach(element => {
     var position = element.location;
@@ -59,7 +60,6 @@ function setInitialMarkers(array){
   });
 
   showListings(markers);
-  allMarkers = markers;
 }
 
 function makeMarkerIcon(markerColor) {
@@ -90,8 +90,7 @@ function hideListings() {
 }
 
 function showClickedMarkerInfo(marker){
-  var infoWindow = new google.maps.InfoWindow();
-  let _currentMarker = allMarkers.filter(function(element){
+  let _currentMarker = markers.filter(function(element){
     if (element.title == marker.title){
       return element;
     }
@@ -101,7 +100,6 @@ function showClickedMarkerInfo(marker){
 }
 
 function populateInfoWindow(marker, infowindow) {
-  // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
     infowindow.setContent('');
     infowindow.marker = marker;
@@ -109,6 +107,7 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.addListener('closeclick', function () {
       infowindow.marker = null;
     });
+
     var streetViewService = new google.maps.StreetViewService();
     var radius = 50;
     function getStreetView(data, status) {
@@ -136,44 +135,3 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.open(map, marker);
   }
 }
-
-// View Model
-var LocationsViewModel = function(){
-  this.locationInput = ko.observable("");
-  this.allLocations = ko.observableArray(initialLocations);
-
-  this.filteredLocations = function(){
-    var filter = this.locationInput().toLowerCase();
-    if (!filter) {
-      return this.allLocations();
-    } else {
-      return ko.utils.arrayFilter(this.allLocations(), function (item) {
-        return stringStartsWith(item.title.toLowerCase(), filter);
-      });
-    }
-  }
-
-  this.setMarkerToDisplay = function(data){
-    showClickedMarkerInfo(data);
-  }
-  
-  this.allLocations.sort();
-};
-
-var VM = new LocationsViewModel();
-ko.applyBindings(VM);
-
-VM.locationInput.subscribe(function(){
-  VM.filteredLocations();
-});
-
-VM.allLocations.subscribe(function(){
-  VM.setMarkerToDisplay();
-});
-
-var stringStartsWith = function (string, startsWith) {          
-  string = string || "";
-  if (startsWith.length > string.length)
-      return false;
-  return string.substring(0, startsWith.length) === startsWith;
-};
