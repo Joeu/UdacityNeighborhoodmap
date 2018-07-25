@@ -3,7 +3,9 @@ const initialLocations = [
   { title: 'Moires - Hambúrguer Rústico', location: { lat: -7.2264025, lng: -35.8954088 } },
   { title: 'Tartaruga Burguer', location: { lat: -7.2221133, lng: -35.8926421 } },
   { title: 'Burgiff Hamburgueria Artesanal', location: { lat: -7.2218311, lng: -35.8830308 } },
-  { title: 'CHEF - Hamburgueria Artesanal', location: { lat: -7.222169, lng: -35.8842632 } }
+  { title: 'CHEF - Hamburgueria Artesanal', location: { lat: -7.222169, lng: -35.8842632 } },
+  { title: 'Texas Hamburgueria Artesanal', location: { lat: -7.2147381, lng: -35.8819365 } },
+  { title: 'La Cucina 150 Ristorante', location: { lat: -7.2225154, lng: -35.8843565 } }
 ];
 
 var initMap = function(){
@@ -20,6 +22,7 @@ var initMap = function(){
 function setInitialMarkers(array){
   var markers = [];
   var defaultIcon = makeMarkerIcon('0091ff');
+  var highlightedIcon = makeMarkerIcon('FFFF24');
   array.forEach(element => {
     var position = element.location;
     var title = element.title;
@@ -31,6 +34,22 @@ function setInitialMarkers(array){
       icon: defaultIcon,
       id: array.indexOf(element)
     });
+    
+    // Markers listeners
+    marker.addListener('mouseover', function() {
+      this.setIcon(highlightedIcon);
+    });
+    marker.addListener('mouseout', function() {
+      this.setIcon(defaultIcon);
+    });
+    marker.addListener('click', function() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    });
+    
     // Push the marker to our array of markers.
     markers.push(marker);
   });
@@ -59,3 +78,8 @@ function showListings(markers) {
   map.fitBounds(bounds);
 }
 
+function hideListings() {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+}
