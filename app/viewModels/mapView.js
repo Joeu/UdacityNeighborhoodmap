@@ -58,14 +58,17 @@ function setMarkers(array){
   showListings(markers);
 }
 
-function filterMarkers(filteresMarkers){
+function filterMarkers(filteredMarkers){
+  let _titlesFiltered = [];
+  filteredMarkers.filter(function(element){
+    _titlesFiltered.push(element.title);
+  });
+
   for (var i = 0; i < markers.length; i++) {
-    for (var j = 0; j < filteresMarkers.length; j++){
-      if (markers[i].title == filteresMarkers[j].title) {
-        markers[i].setMap(map);
-      } else {
-        markers[i].setMap(null);
-      }
+    if (_titlesFiltered.indexOf(markers[i].title) > -1) {
+      markers[i].setMap(map);
+    } else {
+      markers[i].setMap(null);
     }
   }
 }
