@@ -5,13 +5,12 @@ var LocationsViewModel = function(){
 
   this.filteredLocations = function(){
     var filter = this.locationInput().toLowerCase();
-    if (!filter) {
-      return this.allLocations();
-    } else {
-      return ko.utils.arrayFilter(this.allLocations(), function (item) {
-        return stringStartsWith(item.title.toLowerCase(), filter);
-      });
-    }
+    
+    let filterResult = initialLocations.filter(function(element){
+      return stringStartsWith(element.title.toLowerCase(), filter);
+    });
+    this.allLocations(filterResult);
+    filterMarkers(filterResult);
   }
 
   this.setMarkerToDisplay = function(data){
@@ -26,8 +25,4 @@ ko.applyBindings(VM);
 
 VM.locationInput.subscribe(function(){
   VM.filteredLocations();
-});
-
-VM.allLocations.subscribe(function(){
-  VM.setMarkerToDisplay();
 });

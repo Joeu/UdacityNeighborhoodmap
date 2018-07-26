@@ -19,10 +19,10 @@ var initMap = function(){
     mapTypeControl: false
   });
   infoWindow = new google.maps.InfoWindow();
-  setInitialMarkers(initialLocations);
+  setMarkers(initialLocations);
 }
 
-function setInitialMarkers(array){
+function setMarkers(array){
   markers = [];
   var defaultIcon = makeMarkerIcon('0091ff');
   var highlightedIcon = makeMarkerIcon('FFFF24');
@@ -48,11 +48,7 @@ function setInitialMarkers(array){
     });
     marker.addListener('click', function() {
       populateInfoWindow(this, infoWindow);
-      if (marker.getAnimation() !== null) {
-        marker.setAnimation(null);
-      } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-      }
+      marker.getAnimation() !== null ? marker.setAnimation(null) : marker.setAnimation(google.maps.Animation.BOUNCE);
     });
     
     // Push the marker to our array of markers.
@@ -60,6 +56,18 @@ function setInitialMarkers(array){
   });
 
   showListings(markers);
+}
+
+function filterMarkers(filteresMarkers){
+  for (var i = 0; i < markers.length; i++) {
+    for (var j = 0; j < filteresMarkers.length; j++){
+      if (markers[i].title == filteresMarkers[j].title) {
+        markers[i].setMap(map);
+      } else {
+        markers[i].setMap(null);
+      }
+    }
+  }
 }
 
 function makeMarkerIcon(markerColor) {

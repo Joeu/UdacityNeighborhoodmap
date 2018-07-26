@@ -17,7 +17,6 @@
       <a href="javascript:void(0)" class="closebtn" onclick="toggleSearch()">&times;</a>
       <div class="searchInput">
         <input data-bind="value: locationInput, valueUpdate: 'afterkeydown'" placeholder="Enter your favorite area!">
-        <!-- <button data-bind="click: addLocation">Go!</button> -->
         <hr>
         <ul data-bind="foreach: allLocations">
           <span class="locationRow" data-bind="text: $data.title, click: function(){$parent.setMarkerToDisplay($data);}"></span>
