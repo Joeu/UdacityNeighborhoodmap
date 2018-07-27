@@ -45,9 +45,11 @@ function setMarkers(array) {
           lng: marker.getPosition().lng()
         }
       }
+
+      let _markerScope = this;
       makeFoursquareRequest(_markerLatLng).then(function(response){
         // showClickedMarkerInfo(data, response.response.venues[0]);
-        populateInfoWindow(this, infoWindow, response.response.venues[0]);
+        populateInfoWindow(_markerScope, infoWindow, response.response.venues[0]);
       });
       marker.setIcon(clickedIcon);
     });
