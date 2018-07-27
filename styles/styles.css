@@ -24,17 +24,18 @@ img, embed, object, video {
 }
 
 .sidenav {
-  height: 90%;
+  height: 80%;
   width: 0;
   position: fixed;
   z-index: 1;
-  top: 10px;
+  top: 10%;
+  bottom: 10%;
   left: 2px;
   bottom: 2px;
   background-color: #111;
   overflow-x: hidden;
   transition: 0.1s;
-  padding-top: 60px;
+  /* padding-top: 60px; */
   opacity: 0.8;
   border-radius: 25px;
 }
@@ -54,7 +55,7 @@ img, embed, object, video {
 
 .sidenav .closebtn {
   position: absolute;
-  display: inline-block;
+  display: block;
   top: 0;
   right: 25px;
   font-size: 26px;
@@ -67,24 +68,15 @@ img, embed, object, video {
 }
 
 .searchInput {
-  padding-left: 5px;
-  width: 99%;
-}
-
-.searchInput input {
-  width: 85%;
-  display: inline-block;
-}
-
-.searchInput button {
-  position: absolute;
-  display: inline-block;
-  right: 3px;
-}
-
-.searchInput hr {
+  margin-top: 12%;
+  margin-bottom: 5%;
   width: 90%;
-  align-content: center;
+}
+
+.searchInput input, hr {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 100%;
 }
 
 .hamburger {
@@ -97,6 +89,8 @@ img, embed, object, video {
   display: block;
   font-size: 24px;
   color: aqua;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .footer {
