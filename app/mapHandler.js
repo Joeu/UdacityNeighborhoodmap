@@ -40,8 +40,10 @@ function setMarkers(array) {
     });
     marker.addListener('click', function () {
       let _markerLatLng = {
-        lat: marker.getPosition().lat(),
-        lng: marker.getPosition().lng()
+        location: {
+          lat: marker.getPosition().lat(),
+          lng: marker.getPosition().lng()
+        }
       }
       makeFoursquareRequest(_markerLatLng).then(function(response){
         // showClickedMarkerInfo(data, response.response.venues[0]);

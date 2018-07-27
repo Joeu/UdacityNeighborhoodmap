@@ -14,7 +14,7 @@ var LocationsViewModel = function(){
   }
 
   this.setMarkerToDisplay = function(data){
-    makeFoursquareRequest(data.location).then(function(response){
+    makeFoursquareRequest(data).then(function(response){
       showClickedMarkerInfo(data, response.response.venues[0]);
     });
   }
