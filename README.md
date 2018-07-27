@@ -14,3 +14,7 @@ GIS application with Google Maps and Foursquare APIs.
 **Open the index.html file**
 
 >Runs the index.html page in a browser of your choice.
+
+**Icons can be found at**
+
+>https://www.flaticon.com
