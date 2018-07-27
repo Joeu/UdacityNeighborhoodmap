@@ -11,12 +11,8 @@ img, embed, object, video {
 
 .header {
   height: 5%;
-}
-
-.headerIcon {
   background-color: cyan;
   width: 100%;
-  height: 50px;
 }
 
 .main {
@@ -35,7 +31,6 @@ img, embed, object, video {
   background-color: #111;
   overflow-x: hidden;
   transition: 0.1s;
-  /* padding-top: 60px; */
   opacity: 0.8;
   border-radius: 25px;
 }
@@ -60,6 +55,7 @@ img, embed, object, video {
   right: 25px;
   font-size: 26px;
   margin-left: 50px;
+  font-weight: bolder;
 }
 
 .sidenav span:hover {
@@ -83,9 +79,15 @@ img, embed, object, video {
   font-size:30px;
   cursor: pointer;
   background-color: transparent;
+  display: block;
+  position: absolute;
+  z-index: 2;
+  padding: 2px;
 }
 
 .locationRow {
+  font-family: "Bookman Old Style";
+  font-weight: bold;
   display: block;
   font-size: 24px;
   color: aqua;
@@ -95,14 +97,42 @@ img, embed, object, video {
 
 .footer {
   height: 5%;
-  padding: 5px;
-  display: block;
-  width: 50px;
-  margin-left: auto;
-  margin-right: auto
+  min-height: 40px;
+  bottom: 0;
+  background-color: transparent;
+}
+
+.footer img {
+  position: fixed;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 55px;
 }
 
 #pano {
   width: 250px;
   height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 450px) {
+  .sidenav{
+    max-width: 250px;
+  }
+
+  .locationRow {
+    font-size: 18px;
+    padding-bottom: 5%;
+  }
+
+  .hamburger img{
+    height: 44px;
+    width: 44px;
+  }
+
 }

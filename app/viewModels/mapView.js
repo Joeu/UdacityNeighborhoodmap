@@ -12,9 +12,9 @@ var clickedMarker = null;
 var markers = null;
 var infoWindow = null;
 
-var initMap = function(){
+var initMap = function () {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -7.2290752, lng: -35.8808337},
+    center: { lat: -7.2290752, lng: -35.8808337 },
     zoom: 13,
     mapTypeControl: false
   });
@@ -22,10 +22,11 @@ var initMap = function(){
   setMarkers(initialLocations);
 }
 
-function setMarkers(array){
+function setMarkers(array) {
   markers = [];
-  var defaultIcon = makeMarkerIcon('0091ff');
-  var highlightedIcon = makeMarkerIcon('FFFF24');
+
+  var defaultIcon = "../NeighborhoodMap/img/markerDefault.png";
+  var highlightedIcon = "../NeighborhoodMap/img/markerHighlighted.png";
 
   array.forEach(element => {
     var position = element.location;
@@ -38,19 +39,19 @@ function setMarkers(array){
       icon: defaultIcon,
       id: array.indexOf(element)
     });
-    
+
     // Markers listeners
-    marker.addListener('mouseover', function() {
+    marker.addListener('mouseover', function () {
       this.setIcon(highlightedIcon);
     });
-    marker.addListener('mouseout', function() {
+    marker.addListener('mouseout', function () {
       this.setIcon(defaultIcon);
     });
-    marker.addListener('click', function() {
+    marker.addListener('click', function () {
       populateInfoWindow(this, infoWindow);
       marker.getAnimation() !== null ? marker.setAnimation(null) : marker.setAnimation(google.maps.Animation.BOUNCE);
     });
-    
+
     // Push the marker to our array of markers.
     markers.push(marker);
   });
@@ -58,9 +59,9 @@ function setMarkers(array){
   showListings(markers);
 }
 
-function filterMarkers(filteredMarkers){
+function filterMarkers(filteredMarkers) {
   let _titlesFiltered = [];
-  filteredMarkers.filter(function(element){
+  filteredMarkers.filter(function (element) {
     _titlesFiltered.push(element.title);
   });
 
@@ -73,20 +74,8 @@ function filterMarkers(filteredMarkers){
   }
 }
 
-function makeMarkerIcon(markerColor) {
-  var markerImage = new google.maps.MarkerImage(
-    'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
-    '|40|_|%E2%80%A2',
-    new google.maps.Size(21, 34),
-    new google.maps.Point(0, 0),
-    new google.maps.Point(10, 34),
-    new google.maps.Size(21,34));
-  return markerImage;
-}
-
 function showListings(markers) {
   var bounds = new google.maps.LatLngBounds();
-  // Extend the boundaries of the map for each marker and display the marker
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
     bounds.extend(markers[i].position);
@@ -100,9 +89,9 @@ function hideListings() {
   }
 }
 
-function showClickedMarkerInfo(marker){
-  let _currentMarker = markers.filter(function(element){
-    if (element.title == marker.title){
+function showClickedMarkerInfo(marker) {
+  let _currentMarker = markers.filter(function (element) {
+    if (element.title == marker.title) {
       return element;
     }
   });
@@ -114,7 +103,6 @@ function populateInfoWindow(marker, infowindow) {
   if (infowindow.marker != marker) {
     infowindow.setContent('');
     infowindow.marker = marker;
-    // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick', function () {
       infowindow.marker = null;
     });

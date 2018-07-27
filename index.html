@@ -12,25 +12,25 @@
 <body>
 
   <header class="header">
-    <!-- Seach Bar -->
-    <div id="toggleSearch" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="toggleSearch()">&times;</a>
-      <div class="searchInput">
-        <input data-bind="value: locationInput, valueUpdate: 'afterkeydown'" placeholder="Enter your favorite area!">
-        <hr>
-        <ul data-bind="foreach: allLocations">
-          <span class="locationRow" data-bind="text: $data.title, click: function(){$parent.setMarkerToDisplay($data);}"></span>
-        </ul>
-      </div>
-    </div>
-    <div id="headerIcon" class="headerIcon">
-      <span id="hamburgerIcon" class="hamburger" onclick="toggleSearch()">&#9776;</span>
+    <div>
+      <a id="hamburgerIcon" class="hamburger" onclick="toggleSearch()"><img src="img/marker-64x64.png"></a>
     </div>
   </header>
   
+  <!-- Seach Bar -->
+  <nav id="toggleSearch" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleSearch()">&times;</a>
+    <div class="searchInput">
+      <input data-bind="value: locationInput, valueUpdate: 'afterkeydown'" placeholder="Restaurant filter...">
+      <hr>
+      <ul data-bind="foreach: allLocations">
+        <span class="locationRow" data-bind="text: $data.title, click: function(){$parent.setMarkerToDisplay($data);}"></span>
+      </ul>
+    </div>
+  </nav>
+  
   <main id="map" class="main">
     <!-- Map View -->
-    <div></div>
   </main>
 
   <footer class="footer">
