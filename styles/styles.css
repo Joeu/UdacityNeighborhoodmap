@@ -112,10 +112,15 @@ img, embed, object, video {
 }
 
 #pano {
-  width: 250px;
-  height: 250px;
+  width: 220px;
+  height: 220px;
   margin-left: auto;
   margin-right: auto;
+}
+
+#infoContainer {
+  width: 320px;
+  height: 320px;
 }
 
 /* Media Queries */

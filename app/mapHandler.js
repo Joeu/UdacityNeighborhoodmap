@@ -19,8 +19,6 @@ var initMap = function () {
 function setMarkers(array) {
   markers = [];
 
-  
-
   array.forEach(element => {
     var position = element.location;
     var title = element.title;
@@ -41,7 +39,14 @@ function setMarkers(array) {
       this.setIcon(defaultIcon);
     });
     marker.addListener('click', function () {
-      populateInfoWindow(this, infoWindow);
+      let _markerLatLng = {
+        lat: marker.getPosition().lat(),
+        lng: marker.getPosition().lng()
+      }
+      makeFoursquareRequest(_markerLatLng).then(function(response){
+        // showClickedMarkerInfo(data, response.response.venues[0]);
+        populateInfoWindow(this, infoWindow, response.response.venues[0]);
+      });
       marker.setIcon(clickedIcon);
     });
 
@@ -82,21 +87,21 @@ function hideListings() {
   }
 }
 
-function showClickedMarkerInfo(marker) {
+function showClickedMarkerInfo(marker, foursquareResponse) {
   let _currentMarker = markers.filter(function (element) {
     if (element.title == marker.title) {
       return element;
     }
   });
-  
+
   // Simulating click event animation 
   _currentMarker[0].setIcon(clickedIcon);
   setTimeout(function(){_currentMarker[0].setIcon(defaultIcon);},300);
   
-  populateInfoWindow(_currentMarker[0], infoWindow);
+  populateInfoWindow(_currentMarker[0], infoWindow, foursquareResponse);
 }
 
-function populateInfoWindow(marker, infowindow) {
+function populateInfoWindow(marker, infowindow, foursquareResponse) {
   if (infowindow.marker != marker) {
     infowindow.setContent('');
     infowindow.marker = marker;
@@ -109,9 +114,11 @@ function populateInfoWindow(marker, infowindow) {
     function getStreetView(data, status) {
       if (status == google.maps.StreetViewStatus.OK) {
         var nearStreetViewLocation = data.location.latLng;
+        var foursquareContent = foursquareResponse ? '<hr><div>' + foursquareResponse.hereNow.summary + '</div><div>Visits: ' + foursquareResponse.stats.visitsCount + '</div>'
+                                : '<div>No Foursquare records</div>';
         var heading = google.maps.geometry.spherical.computeHeading(
           nearStreetViewLocation, marker.position);
-        infowindow.setContent('<div>' + marker.title + '</div><hr><div id="pano"></div>');
+        infowindow.setContent('<div id="infoContainer"><div>' + marker.title + '</div><hr><div id="pano"></div>' + foursquareContent + '</div>');
         var panoramaOptions = {
           position: nearStreetViewLocation,
           pov: {

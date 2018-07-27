@@ -14,7 +14,9 @@ var LocationsViewModel = function(){
   }
 
   this.setMarkerToDisplay = function(data){
-    showClickedMarkerInfo(data);
+    makeFoursquareRequest(data.location).then(function(response){
+      showClickedMarkerInfo(data, response.response.venues[0]);
+    });
   }
   
   this.allLocations.sort();
