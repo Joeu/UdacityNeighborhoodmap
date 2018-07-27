@@ -2,6 +2,10 @@ var clickedMarker = null;
 var markers = null;
 var infoWindow = null;
 
+var defaultIcon = "../NeighborhoodMap/img/markerDefault.png";
+var highlightedIcon = "../NeighborhoodMap/img/markerHighlighted.png";
+var clickedIcon = "../NeighborhoodMap/img/markerClicked.png";
+
 var initMap = function () {
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: -7.2290752, lng: -35.8808337 },
@@ -15,9 +19,7 @@ var initMap = function () {
 function setMarkers(array) {
   markers = [];
 
-  var defaultIcon = "../NeighborhoodMap/img/markerDefault.png";
-  var highlightedIcon = "../NeighborhoodMap/img/markerHighlighted.png";
-  var clickedIcon = "../NeighborhoodMap/img/markerClicked.png";
+  
 
   array.forEach(element => {
     var position = element.location;
@@ -86,8 +88,12 @@ function showClickedMarkerInfo(marker) {
       return element;
     }
   });
-
-  populateInfoWindow(_currentMarker[0], infoWindow)
+  
+  // Simulating click event animation 
+  _currentMarker[0].setIcon(clickedIcon);
+  setTimeout(function(){_currentMarker[0].setIcon(defaultIcon);},300);
+  
+  populateInfoWindow(_currentMarker[0], infoWindow);
 }
 
 function populateInfoWindow(marker, infowindow) {
