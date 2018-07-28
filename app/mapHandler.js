@@ -6,8 +6,6 @@ var defaultIcon = "./img/markerDefault.png";
 var highlightedIcon = "./img/markerHighlighted.png";
 var clickedIcon = "./img/markerClicked.png";
 
-var gErrorMessage = "Sadly we got an error with the latest google API request! :("
-
 // Success callback from Google API
 var initMap = function () {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -17,11 +15,6 @@ var initMap = function () {
   });
   infoWindow = new google.maps.InfoWindow();
   setMarkers(initialLocations);
-}
-
-// Error callback from Google api
-function handlingGoogleApiError(error) {
-  alert(errorMessage + "<br><div>"+ error +"</div>");
 }
 
 // Setting markers on map

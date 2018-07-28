@@ -14,7 +14,7 @@ function makeFoursquareRequest(locationData){
   return $.getJSON(_finalUrl, function(data) { 
     dfd.resolve(data.response.venues[0]);
   }, function(error){
-    alert(errorMessage + "<br><div>"+ error +"</div>");
+    alert(fErrorMessage);
     dfd.reject(error);
   });
 
