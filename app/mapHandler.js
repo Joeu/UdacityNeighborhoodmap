@@ -2,9 +2,9 @@ var clickedMarker = null;
 var markers = null;
 var infoWindow = null;
 
-var defaultIcon = "../NeighborhoodMap/img/markerDefault.png";
-var highlightedIcon = "../NeighborhoodMap/img/markerHighlighted.png";
-var clickedIcon = "../NeighborhoodMap/img/markerClicked.png";
+var defaultIcon = "./img/markerDefault.png";
+var highlightedIcon = "./img/markerHighlighted.png";
+var clickedIcon = "./img/markerClicked.png";
 
 var initMap = function () {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -48,7 +48,6 @@ function setMarkers(array) {
 
       let _markerScope = this;
       makeFoursquareRequest(_markerLatLng).then(function(response){
-        // showClickedMarkerInfo(data, response.response.venues[0]);
         populateInfoWindow(_markerScope, infoWindow, response.response.venues[0]);
       });
       marker.setIcon(clickedIcon);
