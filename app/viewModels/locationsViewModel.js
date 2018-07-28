@@ -3,6 +3,7 @@ var LocationsViewModel = function(){
   this.locationInput = ko.observable("");
   this.allLocations = ko.observableArray(initialLocations);
 
+  // Filtering locations
   this.filteredLocations = function(){
     var filter = this.locationInput().toLowerCase();
     
@@ -13,6 +14,7 @@ var LocationsViewModel = function(){
     filterMarkers(filterResult);
   }
 
+  // Setting correct marker to be displayed
   this.setMarkerToDisplay = function(data){
     makeFoursquareRequest(data).then(function(response){
       showClickedMarkerInfo(data, response.response.venues[0]);

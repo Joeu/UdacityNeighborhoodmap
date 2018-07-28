@@ -24,6 +24,7 @@ function handlingGoogleApiError(error) {
   alert(errorMessage + "<br><div>"+ error +"</div>");
 }
 
+// Setting markers on map
 function setMarkers(array) {
   markers = [];
 
@@ -68,6 +69,7 @@ function setMarkers(array) {
   showListings(markers);
 }
 
+// Filtering markers
 function filterMarkers(filteredMarkers) {
   let _titlesFiltered = [];
   filteredMarkers.filter(function (element) {
@@ -83,6 +85,7 @@ function filterMarkers(filteredMarkers) {
   }
 }
 
+// Displaying markers
 function showListings(markers) {
   var bounds = new google.maps.LatLngBounds();
   for (var i = 0; i < markers.length; i++) {
@@ -92,12 +95,7 @@ function showListings(markers) {
   map.fitBounds(bounds);
 }
 
-function hideListings() {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(null);
-  }
-}
-
+// Info about single Marker
 function showClickedMarkerInfo(marker, foursquareResponse) {
   let _currentMarker = markers.filter(function (element) {
     if (element.title == marker.title) {
@@ -112,6 +110,7 @@ function showClickedMarkerInfo(marker, foursquareResponse) {
   populateInfoWindow(_currentMarker[0], infoWindow, foursquareResponse);
 }
 
+// Populating infowindow with both Google and Foursquare responses
 function populateInfoWindow(marker, infowindow, foursquareResponse) {
   if (infowindow.marker != marker) {
     infowindow.setContent('');
