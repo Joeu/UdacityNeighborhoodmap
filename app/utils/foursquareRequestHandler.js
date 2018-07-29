@@ -9,13 +9,12 @@ function makeFoursquareRequest(locationData){
   let latLong = locationData.location.lat + "," + locationData.location.lng;
   let _finalUrl = baseUrl + latLong;
 
-  var dfd = jQuery.Deferred();
-
-  return $.getJSON(_finalUrl, function(data) { 
-    dfd.resolve(data.response.venues[0]);
-  }, function(error){
-    alert(fErrorMessage);
-    dfd.reject(error);
-  });
+  return $.getJSON(_finalUrl)
+    .done(function (data) {
+      return (data.response.venues[0]);
+    }).fail(function (error) {
+      console.log(error.responseJSON.meta.errorDetail);
+      return error;
+    });
 
 }

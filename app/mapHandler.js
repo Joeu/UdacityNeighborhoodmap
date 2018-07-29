@@ -49,9 +49,14 @@ function setMarkers(array) {
       }
 
       let _markerScope = this;
-      makeFoursquareRequest(_markerLatLng).then(function(response){
-        populateInfoWindow(_markerScope, infoWindow, response.response.venues[0]);
-      });
+      makeFoursquareRequest(_markerLatLng)
+        .then(function(response){
+          populateInfoWindow(_markerScope, infoWindow, response.response.venues[0]);
+        })
+        .catch(function(){
+          populateInfoWindow(_markerScope, infoWindow, fErrorMessage);
+        });
+
       marker.setIcon(clickedIcon);
     });
 
@@ -117,8 +122,9 @@ function populateInfoWindow(marker, infowindow, foursquareResponse) {
     function getStreetView(data, status) {
       if (status == google.maps.StreetViewStatus.OK) {
         var nearStreetViewLocation = data.location.latLng;
-        var foursquareContent = foursquareResponse ? '<hr><div>' + foursquareResponse.hereNow.summary + '</div><div>Visits: ' + foursquareResponse.stats.visitsCount + '</div>'
-                                : '<div>No Foursquare records</div>';
+        var foursquareContent = foursquareResponse.hereNow && foursquareResponse.stats ? 
+                                '<hr><div>' + foursquareResponse.hereNow.summary + '</div><div>Visits: ' + foursquareResponse.stats.visitsCount + '</div>'
+                                : '<hr><div>' + foursquareResponse + '</div>';
         var heading = google.maps.geometry.spherical.computeHeading(
           nearStreetViewLocation, marker.position);
         infowindow.setContent('<div id="infoContainer"><div>' + marker.title + '</div><hr><div id="pano"></div>' + foursquareContent + '</div>');
